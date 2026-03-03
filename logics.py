@@ -1,6 +1,48 @@
+player_score = 0
+computer_score = 0
+
+
 def computer_selection():
     from random import randint
     options = {1: 'Rock', 2: 'Paper', 3: 'Scissor'}
     computer = randint(1, 3)
     print(f'Computer chose {options[computer]}')
     return computer
+
+
+def fight(player, computer):
+    if player == computer:
+        return 'Draw'
+    elif player == 1:
+        if computer == 2:
+            return 'Computer'
+        elif computer == 3:
+            return 'Player'
+    elif player == 2:
+        if computer == 1:
+            return 'Player'
+        elif computer == 3:
+            return 'Computer'
+    elif player == 3:
+        if computer == 1:
+            return 'Computer'
+        elif computer == 2:
+            return 'Player'
+    else:
+        print('Invalid input')
+
+
+def scorecard(result):
+    global player_score, computer_score
+    if result == 'Player':
+        player_score += 1
+    elif result == 'Computer':
+        computer_score += 1
+    print(f'Player score: {player_score}')
+    print(f'Computer score: {computer_score}')
+    if player_score == 10:
+        print('Congratulations! You win')
+        return 'Player'
+    elif computer_score == 10:
+        print('Better luck next time')
+        return 'Computer'
