@@ -9,7 +9,7 @@ def toggle_fullscreen(event=None):
 
 root = tk.Tk()
 root.title('Rock Paper Scissors Game')
-root.geometry("400x300")
+root.geometry("400x350")
 # root.attributes('-fullscreen', True)
 
 root.bind('<F11>', toggle_fullscreen)
@@ -48,8 +48,14 @@ def game():
         result = logics.fight(player_selected, computer)
         print(f'{result} wins this round')
         score = logics.scorecard(result)
+        player_selection_text.configure(text=logics.options[player_selected])
+        comp_selection_text.configure(text=logics.options[logics.computer_put])
+        scorecard_player_score.configure(text=logics.player_score)
+        scorecard_computer_score.configure(text=logics.computer_score)
         if score is not None:
             game_won = 1
+            root.configure(bg='#00FF00' if score == 'Player' else '#FF0000')
+            result_announce.configure(text=f'{score} wins this game', fg='#00FF00' if score == 'Player' else '#FF0000')
             print(f'{score} wins this game')
 
 
@@ -88,17 +94,17 @@ fight_frame.pack(fill='x', padx=20, pady=10)
 fight_frame.grid_columnconfigure(0, weight=1)
 fight_frame.grid_columnconfigure(1, weight=1)
 fight_frame.grid_columnconfigure(2, weight=1)
-player_selection = tk.Label(fight_frame, text='', fg='white', bg='#703B3B')
-player_selection.grid(row=0, column=0, sticky='NEWS', padx=20, pady=10)
+player_selection_text = tk.Label(fight_frame, text='', fg='white', bg='#703B3B')
+player_selection_text.grid(row=0, column=0, sticky='NEWS', padx=20, pady=10)
 vs = tk.Label(fight_frame, text='--VS--', fg='white', bg='#703B3B')
-vs.grid(row=0, column=0, sticky='NEWS', padx=20, pady=10)
-comp_selection = tk.Label(fight_frame, text='', fg='white', bg='#703B3B')
-comp_selection.grid(row=0, column=0, sticky='NEWS', padx=20, pady=10)
+vs.grid(row=0, column=1, sticky='NEWS', padx=20, pady=10)
+comp_selection_text = tk.Label(fight_frame, text='', fg='white', bg='#703B3B')
+comp_selection_text.grid(row=0, column=2, sticky='NEWS', padx=20, pady=10)
 
 # results frame
-results_frame = tk.Frame(root)
+results_frame = tk.Frame(root, bg='#703B3B')
 results_frame.pack(fill='x', padx=20, pady=10)
-result = tk.Label(results_frame, text='', fg='#703B3B', bg='white')
-result.pack(fill='x', padx=20, pady=10)
+result_announce = tk.Label(results_frame, text='', fg='white', bg='#703B3B', font=("Arial", 16, "bold"))
+result_announce.pack(fill='x', padx=20, pady=10)
 
 root.mainloop()
