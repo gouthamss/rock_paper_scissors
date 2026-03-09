@@ -40,6 +40,15 @@ def player_scissors():
     return player_selected
 
 
+def new_game():
+    rock_selection.config(state=tk.NORMAL)
+    paper_selection.config(state=tk.NORMAL)
+    scissors_selection.config(state=tk.NORMAL)
+    submit_button.grid()
+    new_game_button.grid_remove()
+    logics.new_game()
+
+
 def game():
     # only call other functions/methods from logics.py from here
     global game_won
@@ -54,6 +63,11 @@ def game():
         scorecard_computer_score.configure(text=logics.computer_score)
         if score is not None:
             game_won = 1
+            submit_button.grid_remove()
+            new_game_button.grid()
+            rock_selection.config(state=tk.DISABLED)
+            paper_selection.config(state=tk.DISABLED)
+            scissors_selection.config(state=tk.DISABLED)
             root.configure(bg='#00FF00' if score == 'Player' else '#FF0000')
             result_announce.configure(text=f'{score} wins this game', fg='#00FF00' if score == 'Player' else '#FF0000')
             print(f'{score} wins this game')
@@ -87,6 +101,9 @@ scissors_selection = tk.Button(player_selection_frame, text='\nSCISSORS\n', fg='
 scissors_selection.grid(row=0, column=2, sticky='NEWS', padx=(5, 10), pady=10)
 submit_button = tk.Button(player_selection_frame, text='Submit', command=game)
 submit_button.grid(row=1, column=1, pady=(0, 10))
+new_game_button = tk.Button(player_selection_frame, text='New Game', command=new_game)
+new_game_button.grid(row=1, column=1, pady=(0, 10))
+new_game_button.grid_remove()
 
 # fight frame
 fight_frame = tk.Frame(root, bg='#703B3B')

@@ -49,3 +49,9 @@ def scorecard(result):
     elif computer_score == win_score:
         print('Better luck next time')
         return 'Computer'
+
+
+def new_game():
+    global player_score, computer_score
+    player_score = 0
+    computer_score = 0
