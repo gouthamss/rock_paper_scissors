@@ -10,6 +10,7 @@ def toggle_fullscreen(event=None):
 root = tk.Tk()
 root.title('Rock Paper Scissors Game')
 root.geometry("400x350")
+root.configure(bg='#FFFFFF')
 # root.attributes('-fullscreen', True)
 
 root.bind('<F11>', toggle_fullscreen)
@@ -22,6 +23,7 @@ game_won = 0
 def player_rock():
     global player_selected
     player_selected = 1
+    submit_button.config(state=tk.NORMAL)
     print('Player chose Rock')
     return player_selected
 
@@ -29,6 +31,7 @@ def player_rock():
 def player_paper():
     global player_selected
     player_selected = 2
+    submit_button.config(state=tk.NORMAL)
     print('Player chose Paper')
     return player_selected
 
@@ -36,17 +39,27 @@ def player_paper():
 def player_scissors():
     global player_selected
     player_selected = 3
+    submit_button.config(state=tk.NORMAL)
     print('Player chose Scissors')
     return player_selected
 
 
 def new_game():
+    global game_won
     rock_selection.config(state=tk.NORMAL)
     paper_selection.config(state=tk.NORMAL)
     scissors_selection.config(state=tk.NORMAL)
     submit_button.grid()
+    submit_button.config(state=tk.DISABLED)
     new_game_button.grid_remove()
     logics.new_game()
+    root.configure(bg='#FFFFFF')
+    result_announce.configure(text='',fg='#FFFFFF')
+    player_selection_text.configure(text='')
+    comp_selection_text.configure(text='')
+    scorecard_player_score.configure(text=logics.player_score)
+    scorecard_computer_score.configure(text=logics.computer_score)
+    game_won = 0
 
 
 def game():
@@ -101,6 +114,7 @@ scissors_selection = tk.Button(player_selection_frame, text='\nSCISSORS\n', fg='
 scissors_selection.grid(row=0, column=2, sticky='NEWS', padx=(5, 10), pady=10)
 submit_button = tk.Button(player_selection_frame, text='Submit', command=game)
 submit_button.grid(row=1, column=1, pady=(0, 10))
+submit_button.config(state=tk.DISABLED)
 new_game_button = tk.Button(player_selection_frame, text='New Game', command=new_game)
 new_game_button.grid(row=1, column=1, pady=(0, 10))
 new_game_button.grid_remove()
