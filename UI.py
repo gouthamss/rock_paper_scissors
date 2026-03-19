@@ -54,7 +54,7 @@ def new_game():
     new_game_button.grid_remove()
     logics.new_game()
     root.configure(bg='#FFFFFF')
-    result_announce.configure(text='',fg='#FFFFFF')
+    result_announce.configure(text='', fg='#FFFFFF')
     player_selection_text.configure(text='')
     comp_selection_text.configure(text='')
     scorecard_player_score.configure(text=logics.player_score)
