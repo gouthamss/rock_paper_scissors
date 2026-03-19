@@ -1,10 +1,13 @@
 import tkinter as tk
 import logics
+import game_logger as log
 
 
 def toggle_fullscreen(event=None):
     current_state = root.attributes('-fullscreen')
     root.attributes('-fullscreen', not current_state)
+    print('Pressed F11')
+    log.log('Pressed F11')
 
 
 root = tk.Tk()
@@ -25,6 +28,7 @@ def player_rock():
     player_selected = 1
     submit_button.config(state=tk.NORMAL)
     print('Player chose Rock')
+    log.log('Player chose Rock')
     return player_selected
 
 
@@ -33,6 +37,7 @@ def player_paper():
     player_selected = 2
     submit_button.config(state=tk.NORMAL)
     print('Player chose Paper')
+    log.log('Player chose Paper')
     return player_selected
 
 
@@ -41,6 +46,7 @@ def player_scissors():
     player_selected = 3
     submit_button.config(state=tk.NORMAL)
     print('Player chose Scissors')
+    log.log('Player chose Scissors')
     return player_selected
 
 
@@ -69,6 +75,7 @@ def game():
         computer = logics.computer_selection()
         result = logics.fight(player_selected, computer)
         print(f'{result} wins this round')
+        log.log(f'{result} wins this round')
         score = logics.scorecard(result)
         player_selection_text.configure(text=logics.options[player_selected])
         comp_selection_text.configure(text=logics.options[logics.computer_put])
@@ -84,9 +91,11 @@ def game():
             root.configure(bg='#00FF00' if score == 'Player' else '#FF0000')
             result_announce.configure(text=f'{score} wins this game', fg='#00FF00' if score == 'Player' else '#FF0000')
             print(f'{score} wins this game')
+            log.log(f'{score} wins this game')
 
 
 # scorecard
+log.new_game()
 scorecard_frame = tk.Frame(root, bg='#4300FF')
 scorecard_frame.pack(fill='x', padx=20, pady=10)
 scorecard_label = tk.Label(scorecard_frame, text='SCORECARD:', bg='#4300FF', fg='white', font=("Arial", 24, "bold"))
